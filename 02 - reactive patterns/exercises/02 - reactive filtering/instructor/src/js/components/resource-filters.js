@@ -59,9 +59,6 @@ class ResourceFilters extends HTMLElement {
   }
 
   connectedCallback() {
-    // life cycle: We can't listen for events until the component loads into the DOM, so they go in here!
-    // This also means we need to render the component BEFORE attaching event listeners,
-    // Because .render() is what actually attaches the template content to the shadow root node first.
     this.render();
 
     this._form = this.shadowRoot.querySelector('#frm-filter');
@@ -72,7 +69,6 @@ class ResourceFilters extends HTMLElement {
   }
 
   disconnectedCallback() {
-    // life cycle: If you set up event listeners on load or (not in this example) on attribute change, clean 'em up!
     if (this._form) {
       this._form.removeEventListener('submit', this._handleSubmit);
     }
@@ -82,15 +78,38 @@ class ResourceFilters extends HTMLElement {
   }
 
    _handleCategoryClick(event) {
-    // earlier comment was misleading, sorry!! we will just:
-    //      - change click state of category button
+    const button = event.target.closest('button');
+    if (!button || !this._categoryGroup.contains(button)) {
+      // If no button could be identified ||or the click happened within this div but not on a button, GTFO
+      return;
+    }
+
+    const activeButton = this._categoryGroup.querySelector('.active');
+    if (activeButton && activeButton !== button) {
+      // If there is an active button &&and it's !==not the one just clicked, toggle it to inactive
+      activeButton.classList.remove('active');
+    }
+
+    // With the above checks passed, we can toggle the button that just got clicked
+    button.classList.add('active');
   }
 
   _handleSubmit(event) {
     event.preventDefault();
-    // I'll need to collect data to pack into the filters object; let's get the skeleton out of the way first
+
+    const searchQuery = this.shadowRoot.querySelector('#q').value.trim();
+    // Getting the category requires a few steps of work: find group -> find active button -> find its text value
+    const categoryGroup = this.shadowRoot.querySelector('aria-label="Category filters"') // aria-label is its uniquely identifying attribute
+    const categoryButton = categoryGroup.querySelector('.active') || categoryGroup.querySelector('button');
+    const category = categoryButton ? categoryButton.textContent.trim().toLowerCase() : 'all' // default to all if no selected button
+    const openNow = this.shadowRoot.querySelector('#openNow').checked;
+    const virtual = this.shadowRoot.querySelector('#virtual').checked;
+
     const filters = {
-      // data elements go here, once I've extracted input values from the DOM
+      searchQuery,
+      category,
+      openNow,
+      virtual,
     };
 
     const filtersEvent = new CustomEvent(
