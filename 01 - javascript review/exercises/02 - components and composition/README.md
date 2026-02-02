@@ -143,7 +143,7 @@ At this point, the page will look empty until your components render.
 
 #### Step 4: Implement each component (template + shadow)
 
-Each component should:
+Each claccll should:
 
 - Extend `HTMLElement`
 - Attach a Shadow DOM
