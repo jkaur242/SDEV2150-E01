@@ -2,11 +2,8 @@
 
 ## Install dependencies and run the dev server
 
-0. Extract the starter zip and rename the folder to `lesson-05`
-1. Move into the lesson-05/ directory:
-```sh
-cd lesson-05
-```
+1. Ensure you're in the right directory in your terminal.
+
 2. Install the necessary dependencies:
 ```sh
 npm install
@@ -15,7 +12,7 @@ or
 ```sh
 npm i
 ```
-3. Start the backend API server (in a separate terminal):
+3. In a **separate** terminal, start the backend API server:
 ```sh
 cd backend
 npm install
