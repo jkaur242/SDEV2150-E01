@@ -85,6 +85,41 @@ class ResourceResults extends HTMLElement {
     this.shadowRoot.removeEventListener('click', this._handleResultClick);
   }
 
+  static get observedAttributes() { // HTMLElement callback function to declare which attributes are monitored for change
+    return ['source'];  // array of attributes I'm monitoring
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) { // HTMLElement callback function to execute upon change
+    // 1.a) check if name matches the attribute we want to execute logic for (I might be monitoring multiple attributes)
+    // 1.b) check if value has changed
+    if (name === 'source' && oldVal !== newVal) {
+      // 2. if checks pass, fetch the data from the source (i.e. newVal)
+      if (this.isConnected) {  
+        // ^ an additional check we can perform to double-check that the node is connected to the DOM
+        // docs: https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected
+        this.#fetchData(newVal);
+      }
+    }
+  }
+
+  async #fetchData(source) {
+    // try-except a fetch
+    try {
+      const response = await fetch(source);
+      // response.ok is a boolean for whether response status code was 200 (OK)
+      if (!response.ok) {
+        throw new Error(`Network response not ok: ${response.statusText}`)
+      }
+      // if we got to this point, response was OK, so we can try grabbing data
+      const data = await response.json();  // had to await the fetch for the response, so we have to await for the json from the response
+      this.results = data;
+      // ^ why am I writing to this.results, rather than this.#results?
+      // What would I have to trigger manually if I did that?
+    } catch (error) {
+      console.error('Failed to fetch data: ', error);
+    }
+  }
+
   #applyFilters() {
     const { query, category, openNow, virtual } = this.#filters;
     const normalizedQuery = query.trim().toLowerCase();
