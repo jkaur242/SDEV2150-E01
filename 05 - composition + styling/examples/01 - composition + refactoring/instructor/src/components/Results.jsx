@@ -1,9 +1,8 @@
 // src/components/Results.jsx
 import Card from './ui/Card';
 import ResultsItem from './ResultsItem';
-import { resources } from '../data/resources';
 
-export default function Results() {
+export default function Results({ resources }) {
   return (
     <Card title="Results">
 

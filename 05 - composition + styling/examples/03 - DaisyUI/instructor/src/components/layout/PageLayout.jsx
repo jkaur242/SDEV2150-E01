@@ -1,7 +1,12 @@
 export default function PageLayout({ header, children }) { //({ header, left, middle, right }) {
+  /* With all themes enabled in the DaisyUI plugin config in index.css,
+      try e.g. cyberpunk, dracula, etc.
+  */
+  const theme = "light";
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="border-b border-sky-600 bg-white px-6 py-4">
+    <div data-theme={theme} className="min-h-screen bg-base-100">
+      <header className="border-b border-sky-600 px-6 py-4">
         {header}
       </header>
 
