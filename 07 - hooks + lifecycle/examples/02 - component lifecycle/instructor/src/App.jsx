@@ -1,13 +1,20 @@
+// hooks
 import { useState } from 'react';
 import { useSelectedResource } from './hooks/useSelectedResource';
+import { useResources } from './hooks/useResources';
 
+// components
 import Header from './components/Header';
 import Filters from './components/Filters';
 import Results from './components/Results';
 import Details from './components/Details';
 import PageLayout from './components/layout/PageLayout';
 
+
 function App() {
+
+  const { resources, isLoading, error, refetch } = useResources();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [openNowOnly, setOpenNowOnly] = useState(false);
@@ -37,6 +44,7 @@ function App() {
           selectedCategories={selectedCategories}
           openNowOnly={openNowOnly}
           virtualOnly={virtualOnly}
+          resources={resources}
         />
       </section>
       <aside className="md:col-span-1 lg:col-span-1">

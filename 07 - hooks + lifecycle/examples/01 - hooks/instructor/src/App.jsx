@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelectedResource } from './hooks/useSelectedResource';
 
 import Header from './components/Header';
 import Filters from './components/Filters';
@@ -7,11 +8,20 @@ import Details from './components/Details';
 import PageLayout from './components/layout/PageLayout';
 
 function App() {
+  // built-in React state
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [openNowOnly, setOpenNowOnly] = useState(false);
-  const [selectedResource, setSelectedResource] = useState(null);
   const [virtualOnly, setVirtualOnly] = useState(false);
+
+  // our custom hook!
+  /* Even though the hook's inner function is called 'updateSelectedResource',
+     we're no longer risking naming conflict by calling this setter 'setSelectedResource'.
+     We *want* to keep that naming convention, because this *is* stateful, and so we generally
+     want our code to be immediately legible about what it's doing -- this is still a setter; it just 
+     also writes to persistent storage.
+  */
+  const [selectedResource, setSelectedResource] = useSelectedResource();
 
   return (
     <PageLayout header={<Header tagline="Find the right resources, right away" />}>
