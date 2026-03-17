@@ -1,5 +1,31 @@
-// temporarily unused, not actually a component also missing imports
+// temporarily unused
 
+import { useState, useEffect } from 'react';
+import { useResources } from './hooks/useResources';
+import { useSelectedResource } from './hooks/useSelectedResource';
+
+import Filters from './components/Filters';
+import Results from './components/Results';
+import Details from './components/Details';
+
+export function IndexInline() {
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [openNowOnly, setOpenNowOnly] = useState(false);
+  // const [selectedResource, setSelectedResource] = useState(null);
+  const [selectedResource, setSelectedResource] = useSelectedResource();
+  const [virtualOnly, setVirtualOnly] = useState(false);
+
+  const { resources, isLoading, error, refetch } = useResources();
+
+  // Student exercise: log to the console whenever the selected resource changes
+  useEffect(() => {
+    console.log('Selected resource has changed', selectedResource);
+  }, [selectedResource]);
+
+	return (
+		<>
       {/* The following is not great for UX/UI, but it gets the point across. Feel free to style
       the loading and error states in "nicer" way. */}
       {isLoading && (
@@ -46,3 +72,6 @@
           </div>
         )}
       </aside>
+    </>
+  )	
+}    
