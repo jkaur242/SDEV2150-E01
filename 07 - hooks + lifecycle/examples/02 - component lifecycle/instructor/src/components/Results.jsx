@@ -3,9 +3,9 @@ import ResultsItem from './ResultsItem';
 import Card from './ui/Card';
 
 export default function Results({
-  selectedResource,
   searchTerm,
   selectedCategories,
+  selectedResource,
   onSelectResource,
   openNowOnly,
   virtualOnly,

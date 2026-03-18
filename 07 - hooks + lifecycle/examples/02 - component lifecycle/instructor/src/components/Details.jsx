@@ -1,7 +1,7 @@
 import Card from './ui/Card';
 
 // src/components/Details.jsx
-export default function Details({ resource }) {
+export default function Details({ resource, changeSelectedResource }) {
   return (
     <Card title="Resource Details">
       <div className="space-y-3 p-4">
@@ -37,6 +37,13 @@ export default function Details({ resource }) {
           className="rounded border border-sky-600 px-3 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-50"
         >
           Open map
+        </button>
+        <button
+          type="button"
+          className="rounded border border-sky-600 px-3 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-50"
+          onClick={() => {changeSelectedResource(null)}}
+        >
+          Clear selection
         </button>
       </div>
     </Card>
