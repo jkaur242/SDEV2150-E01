@@ -11,6 +11,7 @@ function App() {
 
   return (
     <PageLayout header={<Header tagline="Find the right resources, right away" />}>
+      placeholder content
       <Outlet />
       {/* ^ Think 'children' in React components/props, or slots in vanilla web components —
           this is a way to have dynamic inline content; we'll set up the routes/assignment
