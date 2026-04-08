@@ -12,7 +12,10 @@ export function useResources() {
     setError(null);
     
     // delay for demo purposes
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));  // 2000 ms -> 2 seconds
+    // review note: this is how you force a wait inside async logic,
+    //              in this case so you can observe loading states.
+    //              comment it out or change it if you want!
     
     try {
       const res = await fetch(`${API_BASE_URL}/resources`, { signal });

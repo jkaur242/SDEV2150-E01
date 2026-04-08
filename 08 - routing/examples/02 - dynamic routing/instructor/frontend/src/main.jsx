@@ -18,9 +18,10 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<ResourceDirectoryPage />} />
-          <Route path="admin" element={<AdminPage />} />
+          <Route path="admin/" element={<AdminPage />} />
+          <Route path="admin/:resourceId" element={<AdminPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );

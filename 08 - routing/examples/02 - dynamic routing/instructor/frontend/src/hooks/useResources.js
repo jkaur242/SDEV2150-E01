@@ -12,7 +12,7 @@ export function useResources() {
     setError(null);
 
     // delay for demo purposes
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 350));
 
     try {
       const res = await fetch(`${API_BASE_URL}/resources`, { signal });
@@ -52,7 +52,7 @@ export function useResources() {
     setError(null);
 
     // delay for demo purposes
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
       const res = await fetch(`${API_BASE_URL}/resources`, {
